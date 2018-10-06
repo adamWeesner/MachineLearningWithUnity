@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neural Network.Plugins", "Neural Network.Plugins.csproj", "{BB4A3556-9311-F58C-FAE2-C0D492DD8C61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neural Network", "Neural Network.csproj", "{BFED0624-977F-A658-5DE5-3307AA52BFAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neural Network.Editor.Plugins", "Neural Network.Editor.Plugins.csproj", "{D2DD69F1-67E7-F564-401C-138D545063B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB4A3556-9311-F58C-FAE2-C0D492DD8C61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB4A3556-9311-F58C-FAE2-C0D492DD8C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB4A3556-9311-F58C-FAE2-C0D492DD8C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB4A3556-9311-F58C-FAE2-C0D492DD8C61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFED0624-977F-A658-5DE5-3307AA52BFAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFED0624-977F-A658-5DE5-3307AA52BFAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFED0624-977F-A658-5DE5-3307AA52BFAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFED0624-977F-A658-5DE5-3307AA52BFAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2DD69F1-67E7-F564-401C-138D545063B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2DD69F1-67E7-F564-401C-138D545063B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2DD69F1-67E7-F564-401C-138D545063B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2DD69F1-67E7-F564-401C-138D545063B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
