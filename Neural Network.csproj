@@ -299,6 +299,7 @@
     <Compile Include="Assets\0Generics\GenericPopManager.cs" />
     <Compile Include="Assets\0Generics\NN-Layer.cs" />
     <Compile Include="Assets\0Generics\NN-Neuron.cs" />
+    <Compile Include="Assets\0Generics\Utils.cs" />
     <Compile Include="Assets\BasicANN\BasicANNBrain.cs" />
     <Compile Include="Assets\CamoGATraining\DNA.cs" />
     <Compile Include="Assets\CamoGATraining\PopulationManager.cs" />
@@ -315,12 +316,18 @@
     <Compile Include="Assets\Perceptron\BasicPerceptron.cs" />
     <Compile Include="Assets\Pong NN\MoveBall.cs" />
     <Compile Include="Assets\Pong NN\PongBrain.cs" />
+    <Compile Include="Assets\Racing NN\ANNDrive.cs" />
+    <Compile Include="Assets\Racing NN\Drive.cs" />
+    <Compile Include="Assets\Racing NN\Kart.cs" />
     <Compile Include="Assets\StayOnPlatformWithSenses\PlatformBrain.cs" />
     <Compile Include="Assets\StayOnPlatformWithSenses\PlatformPopManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Racing NN\trainingData.txt" />
+    <None Include="Assets\Racing NN\weights.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\weights.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
