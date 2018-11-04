@@ -962,6 +962,8 @@ MonoBehaviour:
     alpha: 0.05
     hiddenFunction: 2
     outputFunction: 2
+    useWeightsFromFile: 1
+    folder: Racing NN
   kart:
     speed: 50
     rotationSpeed: 100
@@ -969,7 +971,6 @@ MonoBehaviour:
     translation: 0
     rotation: 0
   epochs: 500
-  loadFromFile: 0
 --- !u!4 &1121218721
 Transform:
   m_ObjectHideFlags: 0

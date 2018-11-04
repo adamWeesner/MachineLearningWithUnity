@@ -332,6 +332,7 @@
     <Compile Include="Assets\Standard Assets\Utility\WaypointProgressTracker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Ball Balance NN\weights.txt" />
     <None Include="Assets\Racing NN\trainingData.txt" />
     <None Include="Assets\Racing NN\weights.txt" />
     <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />

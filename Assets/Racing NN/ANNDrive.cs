@@ -11,7 +11,6 @@ public class ANNDrive : MonoBehaviour {
 
     public int epochs = 1000;
     bool trainingDone = false;
-    public bool loadFromFile = false;
     float trainingProgress = 0;
     double sse = 0;
     double lastSSE = 1;
@@ -23,9 +22,9 @@ public class ANNDrive : MonoBehaviour {
     }
 
     void Start() {
-        ann = new ANN(aNNBuilder.inputs, aNNBuilder.hidden, aNNBuilder.outputs, aNNBuilder.neuronsPerHidden, aNNBuilder.alpha, aNNBuilder.hiddenFunction, aNNBuilder.outputFunction);
-        if (loadFromFile) {
-            kart.LoadWeightsFromFile(ann);
+        ann = new ANN(aNNBuilder.inputs, aNNBuilder.hidden, aNNBuilder.outputs, aNNBuilder.neuronsPerHidden, aNNBuilder.alpha, aNNBuilder.hiddenFunction, aNNBuilder.outputFunction, aNNBuilder.useWeightsFromFile, aNNBuilder.folder);
+        if (ann.useFileWeights) {
+            ann.LoadWeightsFromFile();
             trainingDone = true;
         } else {
             StartCoroutine(LoadTrainingSet());
@@ -52,13 +51,13 @@ public class ANNDrive : MonoBehaviour {
         outputs.Add(0);
         calcOutputs = ann.CalcOutput(inputs, outputs);
 
-        float translationInput = Utils.Map(-1, 1, 0, 1,(float)calcOutputs[0]);
+        float translationInput = Utils.Map(-1, 1, 0, 1, (float)calcOutputs[0]);
         float rotationInput = Utils.Map(-1, 1, 0, 1, (float)calcOutputs[1]);
         kart.Move(this.transform, translationInput, rotationInput);
     }
 
     IEnumerator LoadTrainingSet() {
-        string path = kart.GetPath("trainingData");
+        string path = ann.GetPath("trainingData");
         string line;
         if (File.Exists(path)) {
             int lineCount = File.ReadAllLines(path).Length;
@@ -112,6 +111,6 @@ public class ANNDrive : MonoBehaviour {
             tdf.Close();
         }
         trainingDone = true;
-        kart.SaveWeightsToFile(ann);
+        ann.SaveWeightsToFile();
     }
 }

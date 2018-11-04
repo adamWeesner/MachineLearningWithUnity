@@ -9,7 +9,7 @@ public class Drive : MonoBehaviour {
     StreamWriter tdf;
 
     private void Start() {
-        tdf = File.CreateText(kart.GetPath("trainingData"));
+        tdf = File.CreateText(Application.dataPath + "/Racing NN/trainingData.txt");
     }
 
     private void OnApplicationQuit() {

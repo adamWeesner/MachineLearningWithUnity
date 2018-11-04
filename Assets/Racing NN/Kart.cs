@@ -18,11 +18,6 @@ public class Kart {
         t.Rotate(0, rotation, 0);
     }
 
-    public string GetPath(string data) {
-        return Application.dataPath + "/Racing NN/" + data + ".txt";
-
-    }
-
     public string PerformRayCasts(out float f, out float r, out float l, out float r45, out float l45, Transform t) {
         List<float> rays = new List<float>();
         RaycastHit hit;
@@ -101,22 +96,5 @@ public class Kart {
         rays.Add(l45Dist);
 
         return rays;
-    }
-
-    public void SaveWeightsToFile(ANN ann) {
-        string path = GetPath("weights");
-        StreamWriter wf = File.CreateText(path);
-        wf.WriteLine(ann.PrintWeights());
-        wf.Close();
-    }
-
-    public void LoadWeightsFromFile(ANN ann) {
-        string path = GetPath("weights");
-        StreamReader wf = File.OpenText(path);
-        if (File.Exists(path)) {
-            string line = wf.ReadLine();
-            ann.LoadWeights(line);
-        }
-        wf.Close();
     }
 }
