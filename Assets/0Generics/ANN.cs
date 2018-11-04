@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Linq;
 
 [System.Serializable]
 public enum ActivationFunctions { step, sigmoid, tanh, reLU, leakyReLU, sinusoid, arcTan, softsign }
@@ -13,6 +15,8 @@ public class ANNBuilder {
     public double alpha;
     public ActivationFunctions hiddenFunction;
     public ActivationFunctions outputFunction;
+    public bool useWeightsFromFile;
+    public string folder;
 }
 
 public class ANN {
@@ -24,8 +28,10 @@ public class ANN {
     List<Layer> layers = new List<Layer>();
     public ActivationFunctions hiddenFunction;
     public ActivationFunctions outputFunction;
+    public bool useFileWeights;
+    public string folder;
 
-    public ANN(int numInputs, int numHidden, int numOutputs, int numNeuronsPerHidden, double alpha, ActivationFunctions hidden, ActivationFunctions output) {
+    public ANN(int numInputs, int numHidden, int numOutputs, int numNeuronsPerHidden, double alpha, ActivationFunctions hidden, ActivationFunctions output, bool useFileWeights = false, string folder = "") {
         this.numInputs = numInputs;
         this.numHidden = numHidden;
         this.numOutputs = numOutputs;
@@ -33,6 +39,9 @@ public class ANN {
         this.alpha = alpha;
         this.hiddenFunction = hidden;
         this.outputFunction = output;
+
+        this.useFileWeights = useFileWeights;
+        this.folder = folder;
 
         if (numHidden > 0) {
             // creates input layer
@@ -56,6 +65,45 @@ public class ANN {
     }
 
     public List<double> CalcOutput(List<double> inputValues, List<double> desiredOutput) {
+        List<double> inputs = new List<double>();
+        List<double> outputs = new List<double>();
+        int currentInput = 0;
+
+        if (inputValues.Count != numInputs) {
+            Debug.Log("Error! Number of inputs must be " + numInputs);
+            return outputs;
+        }
+
+        inputs = new List<double>(inputValues);
+        for (int layer = 0; layer < numHidden + 1; layer++) {
+            if (layer > 0) inputs = new List<double>(outputs);
+            outputs.Clear();
+
+            for (int neuron = 0; neuron < layers[layer].numNeurons; neuron++) {
+                double N = 0;
+                layers[layer].neurons[neuron].inputs.Clear();
+
+                for (int input = 0; input < layers[layer].neurons[neuron].numInputs; input++) {
+                    layers[layer].neurons[neuron].inputs.Add(inputs[input]);
+                    N += layers[layer].neurons[neuron].weights[input] * inputs[input];
+                    currentInput++;
+                }
+
+                N -= layers[layer].neurons[neuron].bias;
+                if (layer == numHidden)
+                    layers[layer].neurons[neuron].output = ActivationFunctionO(N);
+                else
+                    layers[layer].neurons[neuron].output = ActivationFunction(N);
+
+                outputs.Add(layers[layer].neurons[neuron].output);
+                currentInput = 0;
+            }
+        }
+
+        return outputs;
+    }
+
+    public List<double> CalcOutput(List<double> inputValues) {
         List<double> inputs = new List<double>();
         List<double> outputs = new List<double>();
         int currentInput = 0;
@@ -118,6 +166,41 @@ public class ANN {
                 }
             }
         }
+    }
+    public string GetPath(string data) {
+        return Application.dataPath + "/" + folder + "/" + data + ".txt";
+    }
+
+
+    public void SaveWeightsToFile() {
+        string path = GetPath("weights");
+        StreamWriter wf = File.CreateText(path);
+        wf.WriteLine(PrintWeights());
+        wf.Close();
+    }
+
+    public void LoadWeightsFromFile() {
+        string path = GetPath("weights");
+        StreamReader wf = File.OpenText(path);
+        if (File.Exists(path)) {
+            string line = wf.ReadLine();
+            LoadWeights(line);
+        }
+        wf.Close();
+    }
+
+    public List<double> SoftMax(List<double> values) {
+        double max = values.Max();
+        float scale = 0.0f;
+
+        for (int i = 0; i < values.Count; ++i)
+            scale += Mathf.Exp((float)(values[i] - max));
+
+        List<double> result = new List<double>();
+        for (int i = 0; i < values.Count; ++i)
+            result.Add(Mathf.Exp((float)(values[i] - max) / scale));
+
+        return result;
     }
 
     void UpdateWeights(List<double> outputs, List<double> desiredOutput) {
